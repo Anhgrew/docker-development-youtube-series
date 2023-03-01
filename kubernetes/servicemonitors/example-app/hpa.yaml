@@ -1,0 +1,23 @@
+# apiVersion: autoscaling/v2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: example-deploy-hpa
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: example-deploy
+#   minReplicas: 1
+#   maxReplicas: 10
+#   metrics:
+#   - type: Object
+#     object:
+#       metric:
+#         name: request_per_second
+#       describedObject:
+#         apiVersion: keda.sh/v1alpha1
+#         kind: ScaledObject
+#         name: my-scaled-object
+#       target:
+#         type: Value
+#         value: 10

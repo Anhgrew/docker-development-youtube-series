@@ -4,11 +4,12 @@ metadata:
   name: example-deploy
   labels:
     app: example-app
+  namespace: default
 spec:
   selector:
     matchLabels:
       app: example-app
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:

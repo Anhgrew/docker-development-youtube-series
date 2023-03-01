@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  namespace: default
+  name: my-scaled-object
+spec:
+  scaleTargetRef:
+    name: example-deploy
+  pollingInterval: 2
+  cooldownPeriod: 7
+  minReplicaCount: 1                                 
+  maxReplicaCount: 99
+  triggers:
+  - type: prometheus
+    metadata:
+      serverAddress: https://prometheus.anhgrew.nguyenanhdevops.live
+      metricName: request_per_second
+      query: sum(increase(python_request_duration_seconds_count{namespace="default", service="example-service"}[5m]))
+      threshold: "50"

@@ -1,6 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: default
   name: example-service
   labels:
     app: example-app
@@ -13,3 +14,31 @@ spec:
       name: web
       port: 80
       targetPort: 5000
+
+--- 
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-ssl-app-metric
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt    
+spec:
+  rules:
+    - host: appdemo.anhgrew.nguyenanhdevops.live
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: example-service
+                port: 
+                  number: 80         
+  # tls:
+  # - hosts:
+  #   - appdemo.anhgrew.nguyenanhdevops.live
+  #   secretName: appdemo-anhgrew-nguyenanhdevops-live                  
+
+          
