@@ -15,5 +15,5 @@ spec:
     metadata:
       serverAddress: https://prometheus.anhgrew.nguyenanhdevops.live
       metricName: request_per_second
-      query: sum(increase(python_request_duration_seconds_count{namespace="default", service="example-service"}[5m]))
-      threshold: "50"
+      query: avg(rate(python_request_duration_seconds_count{service="example-service"}[1m]))
+      threshold: "1"
